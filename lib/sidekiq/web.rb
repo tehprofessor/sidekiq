@@ -223,9 +223,13 @@ module Sidekiq
           busy:       workers.size,
           enqueued:   sidekiq_stats.enqueued,
           scheduled:  sidekiq_stats.scheduled_size,
-          retries:    sidekiq_stats.retry_size,
+          retries:    sidekiq_stats.retry_size
         },
-        redis: redis_stats
+        redis: redis_stats,
+        redis_raw: Sidekiq.redis { |conn| conn.info },
+        rails: {
+          environment: Rails.env
+        }
       })
     end
 
