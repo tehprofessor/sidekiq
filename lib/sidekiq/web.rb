@@ -53,6 +53,10 @@ module Sidekiq
         Sidekiq.options[:namespace]
       end
 
+      def database
+        Sidekiq.redis {|conn| conn.client.db}
+      end
+
       def root_path
         "#{env['SCRIPT_NAME']}/"
       end
