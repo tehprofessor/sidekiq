@@ -226,10 +226,7 @@ module Sidekiq
           retries:    sidekiq_stats.retry_size
         },
         redis: redis_stats,
-        redis_raw: Sidekiq.redis { |conn| conn.info },
-        rails: {
-          environment: Rails.env
-        }
+        database: Sidekiq.redis{|conn| conn.client.db }
       })
     end
 
